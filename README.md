@@ -7,4 +7,4 @@ google fonts : for fonts
 mdn : for docs/learnings
 joi -> an npm package : to validate our schema/ object schema validation
 
-error handled by : air handling middleware, wrap async
+error handled by : error handling middleware, wrap async
