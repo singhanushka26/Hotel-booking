@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image link</label>
-            <input name="listing[image]" value="<%= listing.image %>" type="text" class="form-control"/>
+            <input name="listing[image]" value="<%= listing.image.url %>" type="text" class="form-control" required/>
             
         </div>
 
@@ -45,5 +45,25 @@
     </form>
     </div>
 </div>
-<script src="/js/script.js"></script>
 
+<script>
+    const form = document.querySelector("form");
+    const imageInput = document.querySelector("input[name='listing[image]']");
+
+    form.addEventListener("submit", (e) => {
+        // If the image input is empty, confirm with the user
+        if (!imageInput.value.trim()) {
+            const confirmKeepImage = confirm("Image URL is empty. Do you want to keep the existing image?");
+            if (!confirmKeepImage) {
+                e.preventDefault(); // Stop form submission
+            } else {
+                // If keeping the existing image, add a hidden input with the current image URL
+                const hiddenImageInput = document.createElement("input");
+                hiddenImageInput.type = "hidden";
+                hiddenImageInput.name = "keepImage"; // Flag to tell the backend to retain the image
+                hiddenImageInput.value = "true";
+                form.appendChild(hiddenImageInput);
+            }
+        }
+    });
+</script>
